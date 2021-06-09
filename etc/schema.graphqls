@@ -1,0 +1,73 @@
+# Mageplaza
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Mageplaza.com license that is
+# available through the world-wide-web at this URL:
+# https://www.mageplaza.com/LICENSE.txt
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category    Mageplaza
+# @package     Mageplaza_NameYourPriceGraphQl
+# @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+# @license     https://www.mageplaza.com/LICENSE.txt
+
+type Query {
+    mpBargainPrice: [BargainOutput] @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\BargainPrice") @doc(description: "Query to get bargain price list of customer")
+}
+
+type Mutation {
+    saveMpGuestBargain(
+        input: BargainGuestInput! @doc(description: "Guest Bargain Input")
+    ): BargainOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\SaveGuestBargain") @doc(description: "Save The Bargain For Guest")
+    saveMpBargain(
+        input: BargainInput! @doc(description: "Bargain Input")
+    ): BargainOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\SaveBargain") @doc(description: "Save The Bargain For Customer")
+}
+
+input BargainGuestInput {
+    bargain_price: Float!
+    bargain_qty: Int!
+    customer_name: String
+    customer_email: String!
+    phone: String
+    customer_message: String
+    product_id: Int!
+    store_ids: String
+    options_bundle: String
+}
+
+input BargainInput {
+    bargain_price: Float!
+    bargain_qty: Int!
+    phone: String
+    customer_message: String
+    product_id: Int!
+    store_ids: String
+    options_bundle: String
+}
+
+type BargainOutput {
+  request_id: Int @doc(description: "Request ID")
+  product_id: Int @doc(description: "Product ID")
+  product_name: String @doc(description: "Product Name")
+  sku: String @doc(description: "SKU")
+  options_configurable: String @doc(description: "Options Configurable")
+  original_price: Float @doc(description: "Original Price")
+  bargain_price: Float @doc(description: "Bargain Price")
+  bargain_qty: String @doc(description: "Bargain Qty")
+  status: String @doc(description: "Status")
+  customer_name: String @doc(description: "Customer Name")
+  phone: String @doc(description: "Phone")
+  customer_email: String @doc(description: "Customer Email")
+  store_ids: String @doc(description: "Store ID")
+  customer_message: String @doc(description: "Customer Message")
+  admin_message: String @doc(description: "Admin Message")
+  submitted_date: String @doc(description: "Submitted Date")
+  time_use: String @doc(description: "Time Use")
+  options_bundle: String @doc(description: "Options Bundle")
+}
