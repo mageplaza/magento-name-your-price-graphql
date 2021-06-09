@@ -34,8 +34,8 @@ To start working with **Name Your Price GraphQL** in Magento, you need to:
 - The mutation Mageplaza supports is creating customer requests,etc. Details can be viewed [here](https://documenter.getpostman.com/view/10589000/SzRxXrG9?version=latest).
 
 ## 3. Devdocs
-- [Magento 2 Name Your Price API & examples](https://documenter.getpostman.com/view/10589000/SzRxWqD4?version=latest)
-- [Magento 2 Name Your Price GraphQL & examples](https://documenter.getpostman.com/view/10589000/SzRxXrG9?version=latest)
+- [Magento 2 Name Your Price API & examples](https://documenter.getpostman.com/view/10589000/TzY7dtQq)
+- [Magento 2 Name Your Price GraphQL & examples](https://documenter.getpostman.com/view/10589000/TzY7eE7y)
 
 Click on Run in Postman to add these collections to your workspace quickly.
 
