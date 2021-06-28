@@ -26,28 +26,23 @@ namespace Mageplaza\NameYourPriceGraphQl\Model\Resolver;
 use Exception;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
 /**
- * Class SaveGuestBargain
+ * Class CancelBargain
  * @package Mageplaza\NameYourPriceGraphQl\Model\Resolver
  */
-class SaveGuestBargain extends AbstractResolver
+class CancelBargain extends AbstractResolver
 {
     /**
      * @inheritdoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        if (!$this->helperData->isEnabled()) {
-            throw new GraphQlNoSuchEntityException(__('Module is disabled.'));
-        }
-
-        $request = $this->requestsFactory->create()->setData($args['input']);
+        parent::resolve($field, $context, $info, $value, $args);
 
         try {
-            $result = $this->bargainManagement->saveGuest($request);
+            $result = $this->bargainManagement->cancelMine($this->customerId, $args['requestId']);
         } catch (Exception $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         }

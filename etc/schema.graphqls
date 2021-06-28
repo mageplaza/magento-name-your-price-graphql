@@ -18,6 +18,7 @@
 
 type Query {
     mpBargainPrice: [BargainOutput] @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\BargainPrice") @doc(description: "Query to get bargain price list of customer")
+    mpBargainConfig: ConfigOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\GetConfig") @doc(description: "Query to get bargain price config")
 }
 
 type Mutation {
@@ -27,6 +28,12 @@ type Mutation {
     saveMpBargain(
         input: BargainInput! @doc(description: "Bargain Input")
     ): BargainOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\SaveBargain") @doc(description: "Save The Bargain For Customer")
+    cancelMpGuestBargain(
+       requestId: String! @doc(description: "Guest Bargain Input")
+    ): Boolean @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\CancelGuestBargain") @doc(description: "Cancel The Bargain For Guest")
+    cancelMpBargain(
+       requestId: String! @doc(description: "Bargain Input")
+    ): Boolean @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\CancelBargain") @doc(description: "Cancel The Bargain For Customer")
 }
 
 input BargainGuestInput {
@@ -70,4 +77,38 @@ type BargainOutput {
   submitted_date: String @doc(description: "Submitted Date")
   time_use: String @doc(description: "Time Use")
   options_bundle: String @doc(description: "Options Bundle")
+}
+
+type ConfigOutput {
+    general_config: GeneralConfig @doc(description: "General Config")
+    form_config: FormConfig @doc(description: "Form Config")
+    email_config: EmailConfig @doc(description: "Email Config")
+}
+
+type GeneralConfig {
+    enabled: Boolean @doc(description: "Enabled")
+    customer_groups: String @doc(description: "Customer Groups")
+    condition: String @doc(description: "Condition")
+    price_type: String @doc(description: "Price Type")
+    price_value: Float @doc(description: "Price Value")
+    is_tax: Boolean @doc(description: "Is Tax")
+    allow_discount: Boolean @doc(description: "Allow Discount")
+    limit_time: Int @doc(description: "Limit Time")
+    bargain_qty: Boolean @doc(description: "Bargain QTY")
+    apply_custom_option: Boolean @doc(description: "Apply Custom Option")
+}
+
+type FormConfig {
+    is_popup: Boolean @doc(description: "Is Popup")
+    fields: String @doc(description: "Fields")
+    button_label: String @doc(description: "Button Label")
+}
+
+type EmailConfig {
+    enabled: Boolean @doc(description: "Enabled")
+    sender: String @doc(description: "Sender")
+    admin_email: String @doc(description: "Admin Email")
+    template_confirm: String @doc(description: "Template Confirm")
+    template_approve: String @doc(description: "Template Approve")
+    template_reject: String @doc(description: "Template Reject")
 }

@@ -30,10 +30,10 @@ use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
 /**
- * Class SaveGuestBargain
+ * Class CancelGuestBargain
  * @package Mageplaza\NameYourPriceGraphQl\Model\Resolver
  */
-class SaveGuestBargain extends AbstractResolver
+class CancelGuestBargain extends AbstractResolver
 {
     /**
      * @inheritdoc
@@ -44,10 +44,8 @@ class SaveGuestBargain extends AbstractResolver
             throw new GraphQlNoSuchEntityException(__('Module is disabled.'));
         }
 
-        $request = $this->requestsFactory->create()->setData($args['input']);
-
         try {
-            $result = $this->bargainManagement->saveGuest($request);
+            $result = $this->bargainManagement->cancel($args['requestId']);
         } catch (Exception $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         }

@@ -25,12 +25,14 @@ namespace Mageplaza\NameYourPriceGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
+use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\NameYourPrice\Helper\Data;
 use Mageplaza\NameYourPrice\Model\Api\BargainManagement;
 use Mageplaza\NameYourPrice\Model\RequestsFactory;
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
+use Mageplaza\NameYourPrice\Model\Api\ConfigManagement;
 
 /**
  * Class AbstractResolver
@@ -64,22 +66,31 @@ class AbstractResolver implements ResolverInterface
     protected $customerId;
 
     /**
-     * AbstractBargain constructor.
+     * @var ConfigManagement
+     */
+    protected $configManagement;
+
+    /**
+     * AbstractResolver constructor.
      *
      * @param Data $helperData
      * @param BargainManagement $bargainManagement
      * @param RequestsFactory $requestsFactory
+     * @param GetCustomer $getCustomer
+     * @param ConfigManagement $configManagement
      */
     public function __construct(
         Data $helperData,
         BargainManagement $bargainManagement,
         RequestsFactory $requestsFactory,
-        GetCustomer $getCustomer
+        GetCustomer $getCustomer,
+        ConfigManagement $configManagement
     ) {
         $this->helperData        = $helperData;
         $this->bargainManagement = $bargainManagement;
         $this->requestsFactory   = $requestsFactory;
         $this->getCustomer       = $getCustomer;
+        $this->configManagement  = $configManagement;
     }
 
     /**
@@ -87,6 +98,10 @@ class AbstractResolver implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
+        if (!$this->helperData->isEnabled()) {
+            throw new GraphQlNoSuchEntityException(__('Module is disabled.'));
+        }
+
         if ($this->helperData->versionCompare('2.3.3')) {
             if ($context->getExtensionAttributes()->getIsCustomer() === false) {
                 throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
