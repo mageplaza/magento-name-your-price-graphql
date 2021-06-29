@@ -46,6 +46,7 @@ input BargainGuestInput {
     product_id: Int!
     store_ids: String
     options_bundle: String
+    parent_id: Int
 }
 
 input BargainInput {
@@ -77,6 +78,7 @@ type BargainOutput {
   submitted_date: String @doc(description: "Submitted Date")
   time_use: String @doc(description: "Time Use")
   options_bundle: String @doc(description: "Options Bundle")
+  parent_id: Int @doc(description: "Parent ID")
 }
 
 type ConfigOutput {
