@@ -18,7 +18,7 @@
 
 type Query {
     mpBargainPrice: [BargainOutput] @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\BargainPrice") @doc(description: "Query to get bargain price list of customer")
-    mpBargainConfig: ConfigOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\GetConfig") @doc(description: "Query to get bargain price config")
+    mpBargainConfig: BargainConfigOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\GetConfig") @doc(description: "Query to get bargain price config")
 }
 
 type Mutation {
@@ -81,7 +81,7 @@ type BargainOutput {
   parent_id: Int @doc(description: "Parent ID")
 }
 
-type ConfigOutput {
+type BargainConfigOutput {
     general_config: GeneralConfig @doc(description: "General Config")
     form_config: FormConfig @doc(description: "Form Config")
     email_config: EmailConfig @doc(description: "Email Config")
