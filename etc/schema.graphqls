@@ -28,9 +28,6 @@ type Mutation {
     saveMpBargain(
         input: BargainInput! @doc(description: "Bargain Input")
     ): BargainOutput @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\SaveBargain") @doc(description: "Save The Bargain For Customer")
-    cancelMpGuestBargain(
-       requestId: String! @doc(description: "Guest Bargain Input")
-    ): Boolean @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\CancelGuestBargain") @doc(description: "Cancel The Bargain For Guest")
     cancelMpBargain(
        requestId: String! @doc(description: "Bargain Input")
     ): Boolean @resolver(class: "\\Mageplaza\\NameYourPriceGraphQl\\Model\\Resolver\\CancelBargain") @doc(description: "Cancel The Bargain For Customer")
